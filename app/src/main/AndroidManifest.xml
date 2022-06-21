@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.marietp1pablo">
+    package="com.example.newtp2">
 
     <application
         android:allowBackup="true"
@@ -11,24 +11,20 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MarieTP1Pablo"
+        android:theme="@style/Theme.NewTP2"
         tools:targetApi="31">
         <activity
-            android:name=".ShowListActivity"
+            android:name="com.example.newtp2.ShowListActivity"
             android:exported="false" />
         <activity
-            android:name=".ChoixListActivity"
-            android:exported="false"
-            android:label="ChoixListActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name="com.example.newtp2.ChoixListActivity"
+            android:exported="false" />
         <activity
-            android:name=".SettingsActivity"
-            android:exported="false"
-            android:label="SettingsActivity" />
+            android:name="com.example.newtp2.SettingsActivity"
+            android:exported="false" />
         <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:label="MainActivity">
+            android:name="com.example.newtp2.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
