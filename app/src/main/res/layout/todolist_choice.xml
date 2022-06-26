@@ -15,6 +15,8 @@
         android:layout_marginTop="16dp"
         android:textSize="25sp"
         android:text="TextView"
+        android:textStyle="bold"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
