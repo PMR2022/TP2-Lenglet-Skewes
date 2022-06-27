@@ -47,7 +47,7 @@ class ShowListActivity : AppCompatActivity() {
     }
 
     private fun repeatedElement(elementName: String, list: MutableList<Todo>): Boolean {
-        return list.filter{it.title == elementName}.isEmpty()
+        return list.filter{it.title == elementName}.isNotEmpty()
     }
 }
 
