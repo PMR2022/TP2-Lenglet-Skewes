@@ -1,8 +1,8 @@
 package com.example.newtp2
 
 class Item (
-    var idList : Int,
     var id: Int,
+    var idList : Int,
     var label: String,
     var checked: Boolean,
 )

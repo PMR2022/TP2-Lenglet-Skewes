@@ -4,12 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.newtp2.Item
 import com.example.newtp2.R
-import com.example.newtp2.Todo
+import com.example.newtp2.TodoList
 import kotlinx.android.synthetic.main.todo_item.view.*
 
 class ItemListAdapter (
-    var todos: List<Todo>
+    var listOfItem: MutableList<Item>
 ) : RecyclerView.Adapter<ItemListAdapter.ItemListViewHolder>() {
     inner class ItemListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -19,13 +20,29 @@ class ItemListAdapter (
     }
 
     override fun getItemCount(): Int {
-        return todos.size
+        return listOfItem.size
     }
 
     override fun onBindViewHolder(holder: ItemListViewHolder, position: Int) {
         holder.itemView.apply {
-            tvItem.text = todos[position].title
-            cbDone.isChecked = todos[position].isChecked
+            tvItem.text = listOfItem[position].label
+            cbDone.isChecked = listOfItem[position].checked
         }
     }
+
+    fun display(items: MutableList<Item>) {
+        listOfItem.addAll(items)
+        notifyDataSetChanged()
+    }
+
+    fun addItem(item : Item) {
+        listOfItem.add(item)
+        notifyDataSetChanged()
+    }
+
+
+    /*companion object {
+        const val ITEM_ID = 1
+    }*/
+
 }
