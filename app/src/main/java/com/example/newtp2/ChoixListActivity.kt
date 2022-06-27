@@ -3,14 +3,19 @@ package com.example.newtp2
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newtp2.adapters.TodolistChoiceAdapter
 import kotlinx.android.synthetic.main.activity_choix_list.*
+import retrofit2.HttpException
+import java.io.IOException
 
 class ChoixListActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_choix_list)
@@ -20,6 +25,21 @@ class ChoixListActivity : AppCompatActivity() {
         val adapter = TodolistChoiceAdapter(todolists, this)
         rvTodos.adapter = adapter
         rvTodos.layoutManager = LinearLayoutManager(this)
+
+//        lifecycleScope.launchWhenCreated {
+//            val response = try {
+//                RetrofitInstance.api.getUserToken()
+//            } catch (e: IOException) {
+//                Log.e("IOE Exception", "Internet Error (maybe)")
+//                return@launchWhenCreated
+//            } catch (e: HttpException) {
+//                Log.e("HttpException", "Unexpected response")
+//                return@launchWhenCreated
+//            }
+//            if (response.isSuccesful && response.body() != null) {
+//                adapter.
+//            }
+//        }
 
 
         btnAddTodo.setOnClickListener {
