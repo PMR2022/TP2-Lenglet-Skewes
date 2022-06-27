@@ -7,6 +7,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.newtp2.adapters.TodolistChoiceAdapter
 import kotlinx.android.synthetic.main.activity_choix_list.*
 
 class ChoixListActivity : AppCompatActivity() {
@@ -25,7 +26,11 @@ class ChoixListActivity : AppCompatActivity() {
             val new_todo = etNewList.text.toString()
             if (new_todo.isBlank()) {
                 Toast.makeText(this, "Text cannot be blank", Toast.LENGTH_SHORT).show()
-            } else {
+            }
+            else if (repeatedElement(new_todo, todolists)) {
+                Toast.makeText(this, "This todolist exists already", Toast.LENGTH_SHORT).show()
+            }
+            else {
                 todolists.add(new_todo)
                 adapter.notifyItemInserted(todolists.size - 1)
                 hideSoftKeyboard(it)
@@ -36,5 +41,9 @@ class ChoixListActivity : AppCompatActivity() {
     private fun hideSoftKeyboard(view: View) {
         val manager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         manager.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    private fun repeatedElement(elementName: String, list: MutableList<String>): Boolean {
+        return list.filter{it == elementName}.isNotEmpty()
     }
 }

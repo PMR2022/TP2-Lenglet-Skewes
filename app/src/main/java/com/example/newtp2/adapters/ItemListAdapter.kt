@@ -1,9 +1,11 @@
-package com.example.newtp2
+package com.example.newtp2.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.newtp2.R
+import com.example.newtp2.Todo
 import kotlinx.android.synthetic.main.todo_item.view.*
 
 class ItemListAdapter (
