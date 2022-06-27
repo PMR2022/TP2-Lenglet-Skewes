@@ -4,10 +4,14 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import kotlinx.android.synthetic.main.activity_main.*
+import retrofit2.HttpException
+import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,19 +30,45 @@ class MainActivity : AppCompatActivity() {
         btnOk.setOnClickListener{
             val pseudo = etPseudo.text.toString()
             val password = etPassword.text.toString()
-            editor.apply{
-                putString("lastPseudo", pseudo)
-                apply()
+            var canLogin: Boolean
+
+            lifecycleScope.launchWhenCreated {
+                val response = try {
+                    RetrofitInstance.api.getUsers()
+                } catch (e: IOException) {
+                    Log.e("IOE Exception", "Internet Error (maybe)")
+                    return@launchWhenCreated
+                } catch (e: HttpException) {
+                    Log.e("HttpException", "Unexpected response")
+                    return@launchWhenCreated
+                }
+                if (response.isSuccessful && response.body() != null   ) {
+                    canLogin = true
+                    Log.e("Response", "Body: ${response.body()}")
+                } else {
+                    canLogin = false
+                    Log.e("Response", "Response not successful")
+                }
+                if (!canLogin) {
+                    Toast.makeText(this@MainActivity, "Can't login", Toast.LENGTH_LONG).show()
+                } else {
+                    editor.apply{
+                        putString("lastPseudo", pseudo)
+                        apply()
+                    }
+                    editor_pref.apply{
+                        putString("login",pseudo)
+                        putString("passe", password)
+                        apply()
+                    }
+                    Toast.makeText(this@MainActivity, "Pseudo $pseudo saved in Shared Preferences", Toast.LENGTH_SHORT).show()
+                    Intent(this@MainActivity, ChoixListActivity::class.java).also {
+                        startActivity(it)
+                    }
+                }
             }
-            editor_pref.apply{
-                putString("login",pseudo)
-                putString("passe", password)
-                apply()
-            }
-            Toast.makeText(this, "Pseudo $pseudo saved in Shared Preferences", Toast.LENGTH_SHORT).show()
-            Intent(this, ChoixListActivity::class.java).also {
-                startActivity(it)
-            }
+
+            // si username es unico y está bien loggeado
         }
     }
 
