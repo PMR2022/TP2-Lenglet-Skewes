@@ -17,13 +17,22 @@ class MainActivity : AppCompatActivity() {
         val sharedPref = getSharedPreferences("lastPseudo", Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
 
+        val sharedPref_settings = getSharedPreferences("preferences", Context.MODE_PRIVATE)
+        val editor_pref = sharedPref_settings.edit()
+
         val lastPseudo = sharedPref.getString("lastPseudo", null)
         etPseudo.setText(lastPseudo)
 
         btnOk.setOnClickListener{
             val pseudo = etPseudo.text.toString()
+            val password = etPassword.text.toString()
             editor.apply{
                 putString("lastPseudo", pseudo)
+                apply()
+            }
+            editor_pref.apply{
+                putString("login",pseudo)
+                putString("passe", password)
                 apply()
             }
             Toast.makeText(this, "Pseudo $pseudo saved in Shared Preferences", Toast.LENGTH_SHORT).show()
@@ -42,8 +51,10 @@ class MainActivity : AppCompatActivity() {
         when(item.itemId){
             R.id.miPreferences -> {
                 val pseudo = etPseudo.text.toString()
+                val password = etPassword.text.toString()
                 Intent(this, SettingsActivity::class.java).also {
                     it.putExtra("EXTRA_PSEUDO", pseudo)
+                    it.putExtra("PASSWORD", password)
                     startActivity(it)
                 }
             }
@@ -52,4 +63,3 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
-
