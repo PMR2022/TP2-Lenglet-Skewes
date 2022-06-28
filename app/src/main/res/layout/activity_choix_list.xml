@@ -21,6 +21,7 @@
         android:autofillHints="Add Todo List"
         android:inputType="text" />
 
+
     <Button
         android:id="@+id/btnAddTodo"
         android:layout_width="wrap_content"
