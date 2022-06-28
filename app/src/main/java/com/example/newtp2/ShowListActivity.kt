@@ -15,12 +15,15 @@ class ShowListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_list)
 
-        var todoList = mutableListOf(
-            Todo("todo 1", false),
-            Todo("todo 2", true)
-        )
+        var item1 = Item(1,1,"item1 de todo1",false)
+        var item2 = Item(2,1,"item2 de todo1",false)
+        var item3 = Item(3,2,"item3 de todo2",true)
+        var item4 = Item(4,2,"item4 de todo2",false)
 
-        val adapter = ItemListAdapter(todoList)
+
+        var listOfItems = mutableListOf(item1,item2,item3,item4)
+
+        val adapter = ItemListAdapter(listOfItems)
         rvItems.adapter = adapter
         rvItems.layoutManager = LinearLayoutManager(this)
 
@@ -29,13 +32,13 @@ class ShowListActivity : AppCompatActivity() {
             if (title.isBlank()) {
                 Toast.makeText(this, "Text cannot be blank", Toast.LENGTH_SHORT).show()
             }
-            else if (repeatedElement(title, todoList)) {
+            else if (repeatedElement(title, listOfItems)) {
                 Toast.makeText(this, "This item exists already", Toast.LENGTH_SHORT).show()
             }
             else {
-                val todo = Todo(title, false)
-                todoList.add(todo)
-                adapter.notifyItemInserted(todoList.size - 1)
+                val todo = Item(13,1,"newItem",false)
+                listOfItems.add(todo)
+                adapter.notifyItemInserted(listOfItems.size - 1)
                 hideSoftKeyboard(it)
             }
         }
@@ -46,8 +49,8 @@ class ShowListActivity : AppCompatActivity() {
         manager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
-    private fun repeatedElement(elementName: String, list: MutableList<Todo>): Boolean {
-        return list.filter{it.title == elementName}.isNotEmpty()
+    private fun repeatedElement(elementName: String, list: MutableList<Item>): Boolean {
+        return list.filter{it.label == elementName}.isNotEmpty()
     }
 }
 

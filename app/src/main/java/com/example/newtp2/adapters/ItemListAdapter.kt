@@ -28,6 +28,7 @@ class ItemListAdapter (
             tvItem.text = listOfItem[position].label
             cbDone.isChecked = listOfItem[position].checked
         }
+        //holder.bind(item = listOfItem[position])
     }
 
     fun display(items: MutableList<Item>) {

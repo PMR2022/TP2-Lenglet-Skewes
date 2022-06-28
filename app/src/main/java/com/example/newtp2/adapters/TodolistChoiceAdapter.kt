@@ -36,7 +36,7 @@ class TodolistChoiceAdapter (
 
     override fun onBindViewHolder(holder: TodolistChoiceViewHolder, position: Int) {
         holder.itemView.apply {
-            tvTodolistChoice.text = todolists[position].toString()
+            tvTodolistChoice.text = todolists[position].label
         }
     }
 
